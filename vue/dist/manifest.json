@@ -1,0 +1,14 @@
+{
+  "vue/src/main.js": {
+    "file": "assets/main.cc3c34a7.js",
+    "src": "vue/src/main.js",
+    "isEntry": true,
+    "css": [
+      "assets/main.e88d596f.css"
+    ]
+  },
+  "vue/src/main.css": {
+    "file": "assets/main.e88d596f.css",
+    "src": "vue/src/main.css"
+  }
+}
