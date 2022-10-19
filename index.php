@@ -7,8 +7,6 @@
   </head>
   <body>
     <div id="app"></div>
-    <!-- <script type="module" src="http://localhost:5173/@vite/client"></script>
-    <script type="module" src="http://localhost:5173/vue/src/main.js"></script> -->
 
     <?php
       function vueRender(){
