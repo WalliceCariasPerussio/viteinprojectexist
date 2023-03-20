@@ -1,0 +1,25 @@
+FROM php:5.6-apache
+WORKDIR /var/www/html
+
+RUN apt-get update && \
+    apt-get upgrade -y && \
+    apt-get -y install firebird-dev nano tzdata libzip-dev libicu-dev perl
+
+
+RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - && \
+    apt-get install -y nodejs && \
+    npm install -g npm@9.6.2
+
+ENV TZ=America/Sao_Paulo
+ENV LD_LIBRARY_PATH /usr/lib/x86_64-linux-gnu
+
+COPY docker/php/plus_php.ini ${PHP_INI_DIR}/conf.d/plus_php.ini
+
+RUN docker-php-ext-install interbase zip intl
+
+RUN pecl install xdebug-2.5.5 && docker-php-ext-enable xdebug
+
+COPY --from=composer:2.2 /usr/bin/composer /usr/bin/composer
+
+# RUN a2enmod rewrite
+# RUN service apache2 restart

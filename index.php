@@ -1,3 +1,9 @@
+<?php
+  var_dump($_SERVER);
+  phpinfo();
+  die();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -9,7 +15,6 @@
     <div id="app"></div>
 
     <?php
-    phpinfo();
       function vueRender(){
 
         function ping($host, $port, $timeout) {
@@ -20,9 +25,14 @@
           return round((($tA - $tB) * 1000), 0)." ms";
         }
 
+        // no docker sempre vai ser 5173 no ping
         if(ping($_SERVER['SERVER_ADDR'], 5173, 1000)){
-          $html =  "<script type='module' src='http://localhost:5173/@vite/client'></script>";
-          $html .=  "<script type='module' src='http://localhost:5173/src/main.js'></script>";
+
+          if(phpversion() < 7) $portaVite = 5173;
+          else $portaVite = 5174;
+
+          $html =  "<script type='module' src='http://localhost:$portaVite/@vite/client'></script>";
+          $html .=  "<script type='module' src='http://localhost:$portaVite/src/main.js'></script>";
         }else{
           $manifest = file_get_contents(__dir__. '/vue/dist/manifest.json');
           $manifest = json_decode($manifest, true);
