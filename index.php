@@ -1,7 +1,6 @@
 <?php
-  var_dump($_SERVER);
-  phpinfo();
-  die();
+  // phpinfo();
+  // die();
 ?>
 
 <!DOCTYPE html>

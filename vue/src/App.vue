@@ -5,5 +5,5 @@ import HelloWorld from './components/HelloWorld.vue'
 </script>
 
 <template>
-  <HelloWorld msg="dsas" />
+  <HelloWorld msg="dasda" />
 </template>
