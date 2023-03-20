@@ -9,9 +9,9 @@ export default defineConfig({
     manifest: true,
     rollupOptions: {
       // overwrite default .html entry
-      input: './vue/src/main.js',
+      input: './src/main.js',
       output: {
-        dir: './vue/dist'
+        dir: './dist'
       }
     }
   }
