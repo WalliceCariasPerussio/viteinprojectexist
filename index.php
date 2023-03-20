@@ -9,6 +9,7 @@
     <div id="app"></div>
 
     <?php
+    phpinfo();
       function vueRender(){
 
         function ping($host, $port, $timeout) {
