@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -9,6 +10,7 @@
     <div id="app"></div>
 
     <?php
+    mysql_connect();
       function vueRender(){
 
         function ping($host, $port, $timeout) {

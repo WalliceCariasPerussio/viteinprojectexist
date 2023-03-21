@@ -1,5 +1,1 @@
-o xdebug do php 5 esta ativando sosinho mudar pra fica igual o do 7
-
-precisa testar se o ibase esta funcionando mesmo
-
 precisa resolver o hot reload nos dois
