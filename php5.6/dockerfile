@@ -24,16 +24,6 @@ FROM php:5.6-apache
 
 RUN docker-php-ext-install interbase zip intl
 
-
-# COPY docker/php/interbase/interbase.tar.gz /tmp/
-# RUN cd /tmp && \
-#     tar xvzf interbase.tar.gz && \
-#     cp /tmp/interbase.so $(php-config --extension-dir) && \
-#     echo "extension=interbase.so" > /usr/local/etc/php/conf.d/interbase.ini && \
-#     rm -rf /tmp/interbase*
-
-# RUN pecl install xdebug-2.5.5 && docker-php-ext-enable xdebug
-
 COPY docker/php/xdebug/xdebug-2.5.5.tgz /tmp/
 RUN cd /tmp && \
     tar xvzf xdebug-2.5.5.tgz && \
