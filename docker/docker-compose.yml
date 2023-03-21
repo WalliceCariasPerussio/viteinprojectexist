@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  php:
+    container_name: viteinprojectexist-php74
+    build: .
+    # image: wallice/php56_php74
+    extra_hosts:
+    - "host.docker.internal:host-gateway"
+    ports:
+    - "80:80" # default index.html (none php)
+    - "81:81" # php56
+    - "82:82" # php74
+    - "5173:5173" # vite
+    volumes:
+    - ../:/var/www/html
+    - /var/www/html
+    
+    
