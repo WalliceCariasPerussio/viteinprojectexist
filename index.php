@@ -36,6 +36,10 @@
       }
 
       echo vueRender();
+      echo "<br>";
+      echo "Server IP: ".$_SERVER['SERVER_ADDR'];
+      echo "<br>";
+      echo "PHP Version: ".phpversion();
     ?>
   </body>
 </html>

@@ -2,7 +2,7 @@ services:
  nginx:
   build: 
     context: .
-    dockerfile: nginx/Dockerfile.nginx
+    dockerfile: ./docker/nginx/Dockerfile.nginx
   container_name: nginx
   restart: always
   extra_hosts:
@@ -14,7 +14,7 @@ services:
     - "${PORTA_EXTERNA_VITE:-5173}:5173" # vite
   volumes:
   - ${NIVEL_DIR_PROJETO:-../}:/var/www/html
-  - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+  - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
   links:
   - php54
   - php56
@@ -26,33 +26,33 @@ services:
   restart: always
   volumes:
   - ${NIVEL_DIR_PROJETO:-../}:/var/www/html
-  - ./php/80-php_global.ini:/usr/local/etc/php/conf.d/80-php_global.ini
+  - ./docker/php/80-php_global.ini:/usr/local/etc/php/conf.d/80-php_global.ini
  php56:
   build: 
     context: .
-    dockerfile: php/php56/Dockerfile.php56
+    dockerfile: ./docker/php/php56/Dockerfile.php56
   container_name: php56-fpm
   restart: always
   volumes:
   - ${NIVEL_DIR_PROJETO:-../}:/var/www/html
-  - ./php/80-php_global.ini:/etc/php/5.6/fpm/conf.d/80-php_global.ini
-  - ./php/php56/20-xdebug.ini:/etc/php/5.6/fpm/conf.d/20-xdebug.ini
+  - ./docker/php/80-php_global.ini:/etc/php/5.6/fpm/conf.d/80-php_global.ini
+  - ./docker/php/php56/20-xdebug.ini:/etc/php/5.6/fpm/conf.d/20-xdebug.ini
  php74:
   build: 
     context: .
-    dockerfile: php/php74/Dockerfile.php74
+    dockerfile: ./docker/php/php74/Dockerfile.php74
   container_name: php74-fpm
   restart: always
   volumes:
   - ${NIVEL_DIR_PROJETO:-../}:/var/www/html
-  - ./php/80-php_global.ini:/etc/php/7.4/fpm/conf.d/80-php_global.ini
-  - ./php/php74/20-xdebug.ini:/etc/php/7.4/fpm/conf.d/20-xdebug.ini
+  - ./docker/php/80-php_global.ini:/etc/php/7.4/fpm/conf.d/80-php_global.ini
+  - ./docker/php/php74/20-xdebug.ini:/etc/php/7.4/fpm/conf.d/20-xdebug.ini
 # Comentei o mysql, pois não está sendo usado. Mas caso queira usar, descomente aqui e no link do nginx
 #  db_mysql:
 #   image: mysql:5.7
 #   container_name: mysql
 #   ports:
-#   - "${NIVEL_DIR_PROJETO:-3306}:3306"
+#   - "3306:3306"
 #   command: --default-authentication-plugin=mysql_native_password
 #   restart: always
 #   environment:
