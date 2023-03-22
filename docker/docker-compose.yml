@@ -6,9 +6,9 @@ services:
   extra_hosts:
   - "host.docker.internal:host-gateway"
   ports:
-   - "80:80" # php 5.4
-   - "81:81" # php 5.6
-   - "82:82" # php 7.4
+    - "80:80" # php 5.4 não terminado
+    - "81:81" # php 5.6
+    - "82:82" # php 7.4
   volumes:
   - ../:/var/www/html
   - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
