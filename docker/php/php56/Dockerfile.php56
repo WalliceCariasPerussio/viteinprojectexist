@@ -1,0 +1,26 @@
+FROM ubuntu:20.04
+
+WORKDIR /var/www/html
+
+# Atualização do sistema e instalação das dependências
+RUN apt-get update && apt-get install -y nano curl
+
+# Adiciona o repositório do PHP
+RUN apt-get install -y software-properties-common && \
+    add-apt-repository ppa:ondrej/php -y && \
+    apt-get update
+
+# # Instalação do PHP 5.6
+RUN apt-get -y install --fix-missing php5.6-fpm php5.6-cli php5.6-mysql php5.6-curl \
+    php5.6-json php5.6-interbase php5.6-xml php5.6-mbstring php5.6-zip \
+    php5.6-gd php5.6-xdebug php5.6-redis php5.6-imagick 
+
+COPY --from=composer:2.2 /usr/bin/composer /usr/bin/composer
+
+RUN sed -i 's/listen = \/run\/php\/php5.6-fpm.sock/listen = 9000/g' /etc/php/5.6/fpm/pool.d/www.conf
+
+EXPOSE 9000
+
+RUN mkdir -p /run/php
+
+CMD ["php-fpm5.6", "-F", "-R"]

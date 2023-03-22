@@ -1,0 +1,26 @@
+FROM ubuntu:20.04
+
+WORKDIR /var/www/html
+
+# Atualização do sistema e instalação das dependências
+RUN apt-get update && apt-get install -y nano curl
+
+# Adiciona o repositório do PHP
+RUN apt-get install -y software-properties-common && \
+    add-apt-repository ppa:ondrej/php -y && \
+    apt-get update
+
+# # Instalação do PHP 7.4
+RUN apt-get -y install --fix-missing php7.4-fpm php7.4-cli php7.4-mysql php7.4-curl \
+    php7.4-json php7.4-interbase php7.4-xml php7.4-mbstring php7.4-zip \
+    php7.4-gd php7.4-xdebug php7.4-redis php7.4-imagick 
+
+COPY --from=composer:2.2 /usr/bin/composer /usr/bin/composer
+
+RUN sed -i 's/listen = \/run\/php\/php7.4-fpm.sock/listen = 9000/g' /etc/php/7.4/fpm/pool.d/www.conf
+
+EXPOSE 9000
+
+RUN mkdir -p /run/php
+
+CMD ["php-fpm7.4", "-F", "-R"]

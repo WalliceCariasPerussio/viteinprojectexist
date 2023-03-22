@@ -1,19 +1,51 @@
-version: '3.8'
-
 services:
-  php:
-    container_name: php56_php74 
-    build: .
-    # image: wallice/php56_php74
-    extra_hosts:
-    - "host.docker.internal:host-gateway"
-    ports:
-    - "80:80" # default index.html (none php)
-    - "81:81" # php56
-    - "82:82" # php74
-    - "5173:5173" # vite
-    volumes:
-    - ../:/var/www/html
-    - /var/www/html
-    
-    
+ web:
+  image: nginx:latest
+  container_name: nginx
+  restart: always
+  extra_hosts:
+  - "host.docker.internal:host-gateway"
+  ports:
+   - "80:80" # php 5.4
+   - "81:81" # php 5.6
+   - "82:82" # php 7.4
+  volumes:
+  - ../:/var/www/html
+  - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+  links:
+  - php54
+  - php56
+  - php74
+ php54:
+  image: php:5.4-fpm
+  container_name: php54-fpm
+  restart: always
+  volumes:
+  - ../:/var/www/html
+  - ./php/80-php_global.ini:/usr/local/etc/php/conf.d/80-php_global.ini
+  extra_hosts:
+  - "host.docker.internal:host-gateway"
+ php56:
+  build: 
+    context: .
+    dockerfile: php/php56/Dockerfile.php56
+  container_name: php56-fpm
+  restart: always
+  volumes:
+  - ../:/var/www/html
+  - ./php/80-php_global.ini:/etc/php/5.6/fpm/conf.d/80-php_global.ini
+  - ./php/php56/20-xdebug.ini:/etc/php/5.6/fpm/conf.d/20-xdebug.ini
+  extra_hosts:
+  - "host.docker.internal:host-gateway"
+ php74:
+  build: 
+    context: .
+    dockerfile: php/php74/Dockerfile.php74
+  container_name: php74-fpm
+  restart: always
+  volumes:
+  - ../:/var/www/html
+  - ./php/80-php_global.ini:/etc/php/7.4/fpm/conf.d/80-php_global.ini
+  - ./php/php74/20-xdebug.ini:/etc/php/7.4/fpm/conf.d/20-xdebug.ini
+  extra_hosts:
+  - "host.docker.internal:host-gateway"
