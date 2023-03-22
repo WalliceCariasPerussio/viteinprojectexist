@@ -23,8 +23,6 @@ services:
   volumes:
   - ../:/var/www/html
   - ./php/80-php_global.ini:/usr/local/etc/php/conf.d/80-php_global.ini
-  extra_hosts:
-  - "host.docker.internal:host-gateway"
  php56:
   build: 
     context: .
@@ -35,8 +33,6 @@ services:
   - ../:/var/www/html
   - ./php/80-php_global.ini:/etc/php/5.6/fpm/conf.d/80-php_global.ini
   - ./php/php56/20-xdebug.ini:/etc/php/5.6/fpm/conf.d/20-xdebug.ini
-  extra_hosts:
-  - "host.docker.internal:host-gateway"
  php74:
   build: 
     context: .
@@ -47,5 +43,3 @@ services:
   - ../:/var/www/html
   - ./php/80-php_global.ini:/etc/php/7.4/fpm/conf.d/80-php_global.ini
   - ./php/php74/20-xdebug.ini:/etc/php/7.4/fpm/conf.d/20-xdebug.ini
-  extra_hosts:
-  - "host.docker.internal:host-gateway"
