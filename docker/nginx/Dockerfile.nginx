@@ -9,4 +9,6 @@ RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - && \
     apt-get install -y nodejs && \
     npm install -g npm@9.6.2
 
+WORKDIR /var/www/html/vue
+
 CMD nginx -g 'daemon off;'

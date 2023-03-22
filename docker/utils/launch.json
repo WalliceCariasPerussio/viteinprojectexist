@@ -1,0 +1,19 @@
+// Substituir o caminho do workspaceFolder para o caminho do seu projeto
+// E substitua esse arquivo pelo arquivo launch.json que está na pasta .vscode do seu projeto
+// Caso não tenha o arquivo .vscode, crie uma pasta com esse nome e coloque o arquivo launch.json dentro dela
+
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Listen for XDebug on Docker",
+            "type": "php",
+            "request": "launch",
+            "port": 9003,
+            "pathMappings": {
+                "/var/www/html/": "${workspaceFolder}"
+            },
+            "log": true
+        }
+    ]
+}

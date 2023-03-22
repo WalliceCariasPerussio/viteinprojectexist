@@ -1,6 +1,5 @@
 services:
  web:
-  # image: nginx:latest
   build: 
     context: .
     dockerfile: nginx/Dockerfile.nginx
@@ -20,6 +19,7 @@ services:
   - php54
   - php56
   - php74
+  # - db_mysql # mysql (Esta funcionando, mas não está sendo usado. Ao conectar no mysql, use o host: db_mysql ao invés de localhost)
  php54:
   image: php:5.4-fpm
   container_name: php54-fpm
@@ -47,3 +47,14 @@ services:
   - ../:/var/www/html
   - ./php/80-php_global.ini:/etc/php/7.4/fpm/conf.d/80-php_global.ini
   - ./php/php74/20-xdebug.ini:/etc/php/7.4/fpm/conf.d/20-xdebug.ini
+# Comentei o mysql, pois não está sendo usado. Mas caso queira usar, descomente aqui e no link do nginx
+#  db_mysql:
+#   image: mysql:5.7
+#   container_name: mysql
+#   ports:
+#   - "3306:3306"
+#   command: --default-authentication-plugin=mysql_native_password
+#   restart: always
+#   environment:
+#     MYSQL_ROOT_PASSWORD: root
+#     MYSQL_DATABASE: teste
