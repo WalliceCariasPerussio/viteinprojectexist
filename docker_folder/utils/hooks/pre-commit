@@ -1,0 +1,18 @@
+#!/bin/bash
+
+blocked_base_branch="sprint"
+allowed_base_branch="master"
+current_branch=$(git symbolic-ref HEAD | sed -e 's,.*/\(.*\),\1,')
+
+if [ -f ".force_commit" ]; then
+  echo "Forçando o commit..."
+  rm .force_commit
+  exit 0
+fi
+
+if [ "$current_branch" != "$allowed_base_branch" ] && git merge-base --is-ancestor $blocked_base_branch HEAD; then
+  echo "Commits em branches criadas a partir da branch '$blocked_base_branch' não são permitidos. Crie novas branches a partir da branch '$allowed_base_branch'."
+  exit 1
+fi
+
+exit 0
