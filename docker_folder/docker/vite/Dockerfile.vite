@@ -1,0 +1,16 @@
+FROM ubuntu:20.04
+
+WORKDIR /var/www/html
+
+# Atualização do sistema e instalação das dependências
+RUN apt-get update && apt-get install -y nano curl
+
+RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - && \
+    apt-get install -y nodejs && \
+    npm install -g npm@9.6.2
+
+WORKDIR /var/www/html/vue
+
+EXPOSE 5173
+
+CMD ["npm", "install", "", "&&", "npm", "run", "dev"]

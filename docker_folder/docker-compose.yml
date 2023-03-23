@@ -1,8 +1,9 @@
 services:
  nginx:
-  build: 
-    context: .
-    dockerfile: ./docker/nginx/Dockerfile.nginx
+  image: nginx:latest
+  # build: 
+  #   context: .
+  #   dockerfile: ./docker/nginx/Dockerfile.nginx
   container_name: nginx
   restart: always
   extra_hosts:
@@ -11,7 +12,6 @@ services:
     - "${PORTA_EXTERNA_PHP_5_4:-80}:80" # php 5.4 não terminado
     - "${PORTA_EXTERNA_PHP_5_6:-81}:81" # php 5.6
     - "${PORTA_EXTERNA_PHP_7_4:-82}:82" # php 7.4
-    - "${PORTA_EXTERNA_VITE:-5173}:5173" # vite
   volumes:
   - ${NIVEL_DIR_PROJETO:-../}:/var/www/html
   - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
@@ -19,6 +19,7 @@ services:
   - php54
   - php56
   - php74
+  - vite
   # - db_mysql # mysql (Esta funcionando, mas não está sendo usado. Ao conectar no mysql, use o host: db_mysql ao invés de localhost)
  php54:
   image: php:5.4-fpm
@@ -47,6 +48,19 @@ services:
   - ${NIVEL_DIR_PROJETO:-../}:/var/www/html
   - ./docker/php/80-php_global.ini:/etc/php/7.4/fpm/conf.d/80-php_global.ini
   - ./docker/php/php74/20-xdebug.ini:/etc/php/7.4/fpm/conf.d/20-xdebug.ini
+ vite:
+  build: 
+    context: .
+    dockerfile: ./docker/vite/Dockerfile.vite
+  container_name: vite
+  ports:
+    - "${PORTA_EXTERNA_VITE:-5173}:5173"
+  restart: always
+  volumes:
+  - ${NIVEL_DIR_PROJETO:-../}:/var/www/html
+  working_dir: /var/www/html/vue
+  command: "sh -c 'npm install && npm run dev'"
+
 # Comentei o mysql, pois não está sendo usado. Mas caso queira usar, descomente aqui e no link do nginx
 #  db_mysql:
 #   image: mysql:5.7

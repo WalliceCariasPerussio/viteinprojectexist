@@ -19,7 +19,7 @@
           return round((($tA - $tB) * 1000), 0)." ms";
         }
 
-        if(ping($_SERVER['SERVER_ADDR'], 5173, 1000)){
+        if(ping('vite', 5173, 1000)){
           $html =  "<script type='module' src='http://localhost:5173/@vite/client'></script>";
           $html .=  "<script type='module' src='http://localhost:5173/src/main.js'></script>";
         }else{
