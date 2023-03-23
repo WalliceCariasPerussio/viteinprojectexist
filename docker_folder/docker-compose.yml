@@ -58,7 +58,7 @@ services:
   restart: always
   volumes:
   - ${NIVEL_DIR_PROJETO:-../}:/var/www/html
-  working_dir: /var/www/html/vue
+  working_dir: ${CAMINHO_DIR_VITE:-/var/www/html/vue}
   command: "sh -c 'npm install && npm run dev'"
 
 # Comentei o mysql, pois não está sendo usado. Mas caso queira usar, descomente aqui e no link do nginx

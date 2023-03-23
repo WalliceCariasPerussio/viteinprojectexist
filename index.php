@@ -10,16 +10,8 @@
 
     <?php
       function vueRender(){
-
-        function ping($host, $port, $timeout) {
-          $tB = microtime(true);
-          $fP = @fSockOpen($host, $port, $errno, $errstr, $timeout);
-          if (!$fP) return false;
-          $tA = microtime(true);
-          return round((($tA - $tB) * 1000), 0)." ms";
-        }
-
-        if(ping('vite', 5173, 1000)){
+        
+        if(($_SERVER['SERVER_NAME'] === 'docker.localhost')){
           $html =  "<script type='module' src='http://localhost:5173/@vite/client'></script>";
           $html .=  "<script type='module' src='http://localhost:5173/src/main.js'></script>";
         }else{
