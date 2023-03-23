@@ -1,9 +1,6 @@
 services:
  nginx:
   image: nginx:latest
-  # build: 
-  #   context: .
-  #   dockerfile: ./docker/nginx/Dockerfile.nginx
   container_name: nginx
   restart: always
   extra_hosts:
@@ -20,10 +17,9 @@ services:
   - php56
   - php74
   - vite
-  - db_mysql # mysql (Esta funcionando, mas não está sendo usado. Ao conectar no mysql, use o host: db_mysql ao invés de localhost)
+  # - db_mysql # mysql (Esta funcionando, mas não está sendo usado. Ao conectar no mysql, use o host: db_mysql ao invés de localhost)
  php54:
   image: php:5.4-fpm
-  container_name: php54-fpm
   restart: always
   volumes:
   - ${NIVEL_DIR_PROJETO:-../}:/var/www/html
@@ -62,15 +58,15 @@ services:
   command: "sh -c 'npm install && npm run dev'"
 
 # Comentei o mysql, pois não está sendo usado. Mas caso queira usar, descomente aqui e no link do nginx
- db_mysql:
-  image: mysql:5.7
-  container_name: mysql
-  ports:
-  - "3306:3306"
-  volumes:
-    - ./docker/mysql/data:/var/lib/mysql/
-  command: --default-authentication-plugin=mysql_native_password
-  restart: always
-  environment:
-    MYSQL_ROOT_PASSWORD: root
-    MYSQL_DATABASE: db_teste
+#  db_mysql:
+#   image: mysql:5.7
+#   container_name: mysql
+#   ports:
+#   - "3306:3306"
+#   volumes:
+#     - ./docker/mysql/data:/var/lib/mysql/
+#   command: --default-authentication-plugin=mysql_native_password
+#   restart: always
+#   environment:
+#     MYSQL_ROOT_PASSWORD: root
+#     MYSQL_DATABASE: db_teste
