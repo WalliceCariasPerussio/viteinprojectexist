@@ -4,7 +4,7 @@ param(
 )
 
 if (-not $COMMAND) {
-    Write-Host "Uso: w_docker COMMAND [CONTAINER]"
+    Write-Host "Comando invalido. Comandos validos: {up|down|exec|bash}"
     exit 1
 }
 
@@ -21,14 +21,14 @@ switch ($COMMAND) {
             exit 1
         }
         
-        docker compose exec -t $CONTAINER $args
+        docker exec -it $CONTAINER $args
     }
     "bash" {
         if (-not $CONTAINER) {
             Write-Host "Uso: w_docker bash CONTAINER"
             exit 1
         }
-        docker compose exec -t $CONTAINER bash
+        docker exec -it $CONTAINER bash
     }
     default {
         Write-Host "Comando invalido. Comandos validos: {up|down|exec|bash}"
