@@ -23,4 +23,4 @@ dist-ssr
 *.sln
 *.sw?
 docker_folder/docker/mysql/data/*
-docker_folder/.env
+*.env
