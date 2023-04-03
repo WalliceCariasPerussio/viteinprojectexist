@@ -39,7 +39,6 @@ services:
  ngrok:
     image: wernight/ngrok
     container_name: ngrok
-    restart: always
     ports:
       - "4040:4040"
     env_file: .env
